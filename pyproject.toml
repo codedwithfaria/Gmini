@@ -1,0 +1,18 @@
+[project]
+name = "gmini"
+version = "0.1.0"
+description = "Integration with Google's Gemini AI Assistant"
+authors = [
+    {name = "codedwithfaria", email = ""}
+]
+dependencies = [
+    "aiohttp>=3.8.0",
+    "python-dotenv>=1.0.0",
+]
+requires-python = ">=3.8"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"

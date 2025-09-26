@@ -1,0 +1,12 @@
+{
+  "name": "gmini-mcp-proxy",
+  "version": "1.0.0",
+  "description": "Unified MCP server proxy for Gmini",
+  "main": "src/server.js",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.18.2",
+    "http-proxy-middleware": "^3.0.0",
+    "winston": "^3.11.0"
+  }
+}
