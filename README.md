@@ -1,5 +1,8 @@
 # Gmini - Unified MCP Server Hub
 
+Compose. Build. Deploy.
+The easiest way to build, run, and secure agents.
+
 A comprehensive Model Context Protocol (MCP) server that combines multiple powerful services:
 
 - 🧠 **Memory Service**: Knowledge graph management and persistent memory

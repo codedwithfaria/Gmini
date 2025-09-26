@@ -1,6 +1,24 @@
 version: '3.8'
 
 services:
+  model-runner:
+    image: docker/model-runner:latest
+    container_name: gmini-model-runner
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    ports:
+      - "8000:8000"
+    environment:
+      - MODEL_PATH=/models
+      - OPENAI_API_COMPATIBLE=true
+    volumes:
+      - ./models:/models
+
   memory:
     image: mcp/memory
     container_name: gmini-memory
@@ -42,7 +60,22 @@ services:
       - MEMORY_URL=http://memory:3000
       - PLAYWRIGHT_URL=http://playwright:3000
       - NODE_SANDBOX_URL=http://node-sandbox:3000
+      - MODEL_RUNNER_URL=http://model-runner:8000
     depends_on:
       - memory
       - playwright
       - node-sandbox
+      - model-runner
+
+  # Cloud offload configuration
+  offload-manager:
+    image: docker/offload-manager:latest
+    container_name: gmini-offload
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - CLOUD_PROVIDER=auto  # Will auto-select best available cloud GPU
+      - API_KEY=${DOCKER_OFFLOAD_API_KEY}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "9000:9000"
